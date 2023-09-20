@@ -12,9 +12,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-	res
-		.status(200)
-		.json({ message: 'Ping succsessfully' });
+  res.status(200).json({ message: 'Ping succsessfully' });
 });
 
 app.use('/api/v1/cars', router);
@@ -23,7 +21,5 @@ app.use(handler.handlerError);
 
 //activate server
 app.listen(PORT, () => {
-	console.log(
-		`Express nyala di http://${host}:${PORT}`
-	);
+  console.log(`Express nyala di http://${host}:${PORT}`);
 });
