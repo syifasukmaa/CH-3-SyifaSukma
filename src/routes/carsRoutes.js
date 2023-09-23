@@ -1,7 +1,10 @@
 const express = require('express');
-const handler = require('../utils/handler');
+const middleware = require('../middlewares/middleware');
+const handler = require('../controllers/handler');
 
 const router = express.Router();
+
+router.param('id', middleware.checkId);
 
 //getAllCars
 router.get('/', handler.handlerGetAllCars);

@@ -1,10 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
-const handler = require('./src/utils/handler');
-const router = require('./src/routes/route');
+const middleware = require('./src/middlewares/middleware');
+const router = require('./src/routes/carsRoutes');
 
-const PORT = process.env.PORT || 7000;
-const host = 'localhost';
 const app = express();
 
 app.use(express.json());
@@ -17,9 +15,6 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/cars', router);
 
-app.use(handler.handlerError);
+app.use(middleware.handlerError);
 
-//activate server
-app.listen(PORT, () => {
-  console.log(`Express nyala di http://${host}:${PORT}`);
-});
+module.exports = app;

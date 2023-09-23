@@ -28,13 +28,6 @@ const handlerGetCarDetail = (req, res, next) => {
     });
     const car = cars[carId];
 
-    if (!car) {
-      return res.status(404).json({
-        status: 'failed',
-        message: `Can't find the car with id: ${id}`,
-      });
-    }
-
     res.status(200).json({
       status: 'success',
       message: 'Success Get Car Detail',
@@ -75,13 +68,6 @@ const handlerUpdateCar = (req, res, next) => {
       return car.id === id;
     });
 
-    if (carId === -1) {
-      return res.status(404).json({
-        status: 'failed',
-        message: `data with ${id} not found`,
-      });
-    }
-
     cars[carId] = { ...cars[carId], ...req.body };
 
     fs.writeFile(pathFileJson, JSON.stringify(cars, null, 2), (err) => {
@@ -106,13 +92,6 @@ const handlerDeleteCar = (req, res, next) => {
       return car.id === id;
     });
 
-    if (carId === -1) {
-      return res.status(404).json({
-        status: 'failed',
-        message: `data with ${id} not found`,
-      });
-    }
-
     cars.splice(carId, 1);
     fs.writeFile(pathFileJson, JSON.stringify(cars, null, 2), (err) => {
       res.status(200).json({
@@ -126,19 +105,10 @@ const handlerDeleteCar = (req, res, next) => {
   }
 };
 
-//handler menangani error
-const handlerError = (error, req, res, next) => {
-  console.error(error);
-  return res.status(500).json({
-    error: 'Something wrong!!!',
-  });
-};
-
 module.exports = {
   handlerGetAllCars,
   handlerGetCarDetail,
   handlerAddNewCar,
   handlerUpdateCar,
   handlerDeleteCar,
-  handlerError,
 };
